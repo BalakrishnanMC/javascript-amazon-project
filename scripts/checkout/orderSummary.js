@@ -69,7 +69,10 @@ export function renderOrderSummary(){
       link.addEventListener('click', () => {
         const productId = link.dataset.productId;
         removeFromCart(productId);
+
         document.querySelector(`.js-cart-container-${productId}`).remove();
+
+        renderPaymentSummary();
       });
     });
 
