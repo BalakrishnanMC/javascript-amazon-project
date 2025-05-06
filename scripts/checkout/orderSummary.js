@@ -1,8 +1,9 @@
 import { cart, removeFromCart, updateDeliveryOption } from '../../data/cart.js'
-import { products } from '../../data/products.js';
+import { getProduct, products } from '../../data/products.js';
 import formatCurrency from '../utils/money.js';
 import dayjs from 'https://esm.sh/dayjs';
 import { deliveryOptions } from '../../data/deliveryOptions.js';
+import { renderPaymentSummary } from './paymentSummary.js';
 
 
 //const deliveryDate = dayjs().add(0,'days').format('dddd, MMMM D');
@@ -11,12 +12,7 @@ export function renderOrderSummary(){
   let cartSummaryHTML='';
 
   cart.forEach((cartItem) => {
-    let matchingItem;
-    products.forEach((product) => {
-      if(product.id === cartItem.productId){
-        matchingItem = product;
-      }
-    });
+    const matchingItem = getProduct(cartItem.productId);
 
     let dateString ='';
     deliveryOptions.forEach((deliveryOption) => {
@@ -40,7 +36,7 @@ export function renderOrderSummary(){
               ${matchingItem.name}
             </div>
             <div class="product-price">
-              $${formatCurrency(matchingItem.priceCents* cartItem.quantity)}
+              $${formatCurrency(matchingItem.priceCents)}
             </div>
             <div class="product-quantity">
               <span>
@@ -110,6 +106,7 @@ export function renderOrderSummary(){
         const deliveryDays = deliveryOption.dataset.deliveryDays;
         updateDeliveryOption(productId,deliveryOptionId);
         renderOrderSummary();
+        renderPaymentSummary();
       })
     });
 }
