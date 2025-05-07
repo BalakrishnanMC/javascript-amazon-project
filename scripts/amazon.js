@@ -8,23 +8,23 @@ products.forEach((product) => {
   productsHTML+= `<div class="product-container">
           <div class="product-image-container">
             <img class="product-image"
-              src="${product.image}">
+              src="${product.getImage()}">
           </div>
 
           <div class="product-name limit-text-to-2-lines">
-            ${product.name}
+            ${product.getName()}
           </div>
 
           <div class="product-rating-container">
             <img class="product-rating-stars"
-              src="images/ratings/rating-${product.rating.stars * 10}.png">
+              src="${product.getStars()}">
             <div class="product-rating-count link-primary">
-              ${product.rating.count}
+              ${product.getRatingCount()}
             </div>
           </div>
 
           <div class="product-price">
-            $${formatCurrency(product.priceCents)}
+            ${product.getPrice()}
           </div>
 
           <div class="product-quantity-container">
@@ -49,7 +49,7 @@ products.forEach((product) => {
             Added
           </div>
 
-          <button class="add-to-cart-button button-primary js-add-to-cart" data-product-id="${product.id}">
+          <button class="add-to-cart-button button-primary js-add-to-cart" data-product-id="${product.getId()}">
             Add to Cart
           </button>
         </div>`;

@@ -12,7 +12,7 @@ export function renderOrderSummary(){
   let cartSummaryHTML='';
 
   cart.forEach((cartItem) => {
-    const matchingItem = getProduct(cartItem.productId);
+    const matchingProduct = getProduct(cartItem.productId);
 
     let dateString ='';
     deliveryOptions.forEach((deliveryOption) => {
@@ -22,21 +22,21 @@ export function renderOrderSummary(){
     });
 
     cartSummaryHTML+=`
-      <div class="cart-item-container js-cart-container-${matchingItem.id}">
+      <div class="cart-item-container js-cart-container-${matchingProduct.getId()}">
         <div class="delivery-date js-delivery-date">
           Delivery date: ${dateString}
         </div>
 
         <div class="cart-item-details-grid">
           <img class="product-image"
-            src="${matchingItem.image}">
+            src="${matchingProduct.getImage()}">
 
           <div class="cart-item-details">
             <div class="product-name">
-              ${matchingItem.name}
+              ${matchingProduct.getName()}
             </div>
             <div class="product-price">
-              $${formatCurrency(matchingItem.priceCents)}
+              ${matchingProduct.getPrice()}
             </div>
             <div class="product-quantity">
               <span>
@@ -45,7 +45,7 @@ export function renderOrderSummary(){
               <span class="update-quantity-link link-primary">
                 Update
               </span>
-              <span class="delete-quantity-link link-primary js-delete-link" data-product-id="${matchingItem.id}">
+              <span class="delete-quantity-link link-primary js-delete-link" data-product-id="${matchingProduct.getId()}">
                 Delete
               </span>
             </div>
@@ -55,7 +55,7 @@ export function renderOrderSummary(){
             <div class="delivery-options-title">
               Choose a delivery option:
             </div>
-            ${deliveryOptionsHTML(matchingItem,cartItem)}
+            ${deliveryOptionsHTML(matchingProduct,cartItem)}
           </div>
         </div>
       </div>
@@ -76,17 +76,17 @@ export function renderOrderSummary(){
       });
     });
 
-  function deliveryOptionsHTML(matchingItem,cartItem){
+  function deliveryOptionsHTML(matchingProduct,cartItem){
     let html='';
     deliveryOptions.forEach((deliveryOption) => {
       const dateString = dayjs().add(deliveryOption.deliveryDays,'days').format('dddd, MMMM D');
       const priceString = deliveryOption.priceCents === 0 ? 'FREE' : `$${formatCurrency(deliveryOption.priceCents)}`;
       const isChecked = cartItem.deliveryOptionId === deliveryOption.id;
       html+=`
-            <div class="delivery-option js-delivery-option" data-product-id="${matchingItem.id}" data-delivery-option-id="${deliveryOption.id}"">
+            <div class="delivery-option js-delivery-option" data-product-id="${matchingProduct.getId()}" data-delivery-option-id="${deliveryOption.id}"">
               <input type="radio" ${isChecked ? 'checked' : ''}
                 class="delivery-option-input"
-                name="delivery-option-${matchingItem.id}">
+                name="delivery-option-${matchingProduct.getId()}">
               <div>
                 <div class="delivery-option-date">
                   ${dateString}
