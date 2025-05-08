@@ -3,11 +3,12 @@ import {getProduct} from '../../data/products.js'
 import formatCurrency from "../utils/money.js";
 import { myCart } from '../../data/cart.js';
 
-console.log(myCart);
 export function renderPaymentSummary(){
+
   let productPriceCents = 0;
   let shippingPriceCents = 0;
   let totalProducts = 0;
+
   myCart.cartItems.forEach((cartItem) => {
     const product = getProduct(cartItem.productId);
     const deliveryOption = getDeliveryOption(cartItem.deliveryOptionId);
@@ -15,6 +16,7 @@ export function renderPaymentSummary(){
     shippingPriceCents+=deliveryOption.priceCents;
     totalProducts+=cartItem.quantity;
   });
+
   const paymentSummaryHTML = `
       <div class="payment-summary-title">
         Order Summary
@@ -49,6 +51,7 @@ export function renderPaymentSummary(){
         Place your order
       </button>
   `;
+  
   document.querySelector('.js-payment-summary').innerHTML = paymentSummaryHTML;
 }
 

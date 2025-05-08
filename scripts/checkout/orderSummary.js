@@ -5,9 +5,8 @@ import { deliveryOptions } from '../../data/deliveryOptions.js';
 import { renderPaymentSummary } from './paymentSummary.js';
 import { myCart } from '../../data/cart.js';
 
-//const deliveryDate = dayjs().add(0,'days').format('dddd, MMMM D');
-
 export function renderOrderSummary(){
+
   let cartSummaryHTML='';
 
   myCart.cartItems.forEach((cartItem) => {
@@ -61,7 +60,9 @@ export function renderOrderSummary(){
     `
   });
 
+
   document.querySelector('.js-order-summary').innerHTML = cartSummaryHTML;
+
 
   document.querySelectorAll('.js-delete-link')
     .forEach((link) => {
@@ -74,6 +75,7 @@ export function renderOrderSummary(){
         renderPaymentSummary();
       });
     });
+
 
   function deliveryOptionsHTML(matchingProduct,cartItem){
     let html='';
@@ -100,6 +102,7 @@ export function renderOrderSummary(){
     return html;
   }
 
+  
   document.querySelectorAll('.js-delivery-option')
     .forEach((deliveryOption) => {
       deliveryOption.addEventListener('click', () => {

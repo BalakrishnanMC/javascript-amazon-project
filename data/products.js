@@ -1,15 +1,5 @@
 import formatCurrency from "../scripts/utils/money.js";
 
-export function getProduct(productId){
-  let matchingProduct;
-    products.forEach((product) => {
-      if(product.id === productId){
-        matchingProduct = product;
-      }
-    });
-  return matchingProduct;
-}
-
 class Product{
   id;
   image;
@@ -66,6 +56,16 @@ class Clothing extends Product{
   extraInfoHTML(){
     return `<a href='${this.sizeChartLink}' target='_blank'>Size chart</a>`;
   }
+}
+
+export function getProduct(productId){
+  let matchingProduct;
+    products.forEach((product) => {
+      if(product.id === productId){
+        matchingProduct = product;
+      }
+    });
+  return matchingProduct;
 }
 
 export const products = [
@@ -733,4 +733,5 @@ export const products = [
   }
   return new Product(productDetails);
 });
+
 
