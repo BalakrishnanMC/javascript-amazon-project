@@ -61,7 +61,7 @@ class Clothing extends Product{
 
 
 
-let products = [];
+export let products = [];
 
 export function loadProducts(fun){
   const xhr = new XMLHttpRequest();
