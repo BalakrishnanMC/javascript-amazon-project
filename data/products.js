@@ -1,3 +1,5 @@
+import { renderOrderSummary } from "../scripts/checkout/orderSummary.js";
+import { renderPaymentSummary } from "../scripts/checkout/paymentSummary.js";
 import formatCurrency from "../scripts/utils/money.js";
 
 class Product{
@@ -775,6 +777,6 @@ export function loadProductsFetch(){
   });
   return promise;
 }
-// loadProductsFetch().then(() => {
-//   console.log('nextstep');
-// });
+loadProductsFetch().then(() => {
+  renderOrderSummary();
+});

@@ -1,6 +1,6 @@
 import {renderOrderSummary} from './checkout/orderSummary.js'
 import { renderPaymentSummary } from './checkout/paymentSummary.js';
-import { loadProducts, loadProductsFetch } from '../data/products.js';
+import {loadProductsFetch } from '../data/products.js';
 
 // loadProducts(() => {
 //   renderOrderSummary();
@@ -15,9 +15,15 @@ import { loadProducts, loadProductsFetch } from '../data/products.js';
 //   renderOrderSummary();
 // })
 
-Promise.all([
-  loadProductsFetch()
-]).then(() => {
+// Promise.all([
+//   loadProductsFetch()
+// ]).then(() => {
+//   renderOrderSummary();
+//   renderPaymentSummary();
+// })
+
+async function loadPage() {
+  await loadProductsFetch();
   renderOrderSummary();
   renderPaymentSummary();
-})
+}

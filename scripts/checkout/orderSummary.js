@@ -1,14 +1,12 @@
-import { getProduct} from '../../data/products.js';
+import { getProduct, loadProductsFetch} from '../../data/products.js';
 import formatCurrency from '../utils/money.js';
 import dayjs from 'https://esm.sh/dayjs';
 import { deliveryOptions } from '../../data/deliveryOptions.js';
 import { renderPaymentSummary } from './paymentSummary.js';
 import { myCart } from '../../data/cart.js';
 
-export function renderOrderSummary(){
-
+export async function renderOrderSummary(){
   let cartSummaryHTML='';
-
   myCart.cartItems.forEach((cartItem) => {
     const matchingProduct = getProduct(cartItem.productId);
 

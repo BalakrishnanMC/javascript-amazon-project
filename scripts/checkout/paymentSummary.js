@@ -1,10 +1,10 @@
 import { getDeliveryOption } from "../../data/deliveryOptions.js"
-import {getProduct, loadProducts} from '../../data/products.js'
+import {getProduct, loadProducts, loadProductsFetch} from '../../data/products.js'
 import formatCurrency from "../utils/money.js";
 import { myCart } from '../../data/cart.js';
 
-export function renderPaymentSummary(){
-  loadProducts(() => {
+export async function renderPaymentSummary(){
+    await loadProductsFetch();
     let productPriceCents = 0;
     let shippingPriceCents = 0;
     let totalProducts = 0;
@@ -53,7 +53,6 @@ export function renderPaymentSummary(){
     `;
     
     document.querySelector('.js-payment-summary').innerHTML = paymentSummaryHTML;
-    })
 }
 
 renderPaymentSummary();
