@@ -1,4 +1,4 @@
-import { getProduct, products } from '../../data/products.js';
+import { getProduct} from '../../data/products.js';
 import formatCurrency from '../utils/money.js';
 import dayjs from 'https://esm.sh/dayjs';
 import { deliveryOptions } from '../../data/deliveryOptions.js';
