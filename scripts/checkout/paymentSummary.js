@@ -1,12 +1,20 @@
 import { getDeliveryOption } from "../../data/deliveryOptions.js"
-import {getProduct, loadProducts, loadProductsFetch} from '../../data/products.js'
+import {products} from '../../data/products.js';
 import formatCurrency from "../utils/money.js";
 import { myCart } from '../../data/cart.js';
-import { addOrder } from "../../data/orders.js";
+import { orderClass } from '../../data/orders.js';
 
+function getProduct(productId){
+  let matchingProduct;
+  products.forEach((product) => {
+    if(product.id === productId){
+      matchingProduct = product;
+    }
+  });
+  return matchingProduct;
+}
 
 export async function renderPaymentSummary(){
-    await loadProductsFetch();
     let productPriceCents = 0;
     let shippingPriceCents = 0;
     let totalProducts = 0;
@@ -55,26 +63,20 @@ export async function renderPaymentSummary(){
     `;
     
     document.querySelector('.js-payment-summary').innerHTML = paymentSummaryHTML;
+
+
     document.querySelector('.js-place-order')
-      .addEventListener('click',async () => {
-        try{
-          const response = await fetch('https://supersimplebackend.dev/orders',{
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-              cart: myCart.cartItems
-            })
-          });
-          const order = await response.json();
-          addOrder(order);
-        }
-        catch(error){
-          console.log('Unexpected error. Try again Later.');
-        }
+      .addEventListener('click',() => {
+          orderClass.addItems({
+            orderId : '27cba69d-4c3d-4098-b42d-ac7fa62b7664',
+            total : 3555,
+            date : 'August 12',
+            cart : myCart.cartItems
+          })
         window.location.href = 'orders.html';
       });
+    
 }
-
 renderPaymentSummary();
+
+
